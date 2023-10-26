@@ -2,6 +2,13 @@
 
 A small utility app for working with [Authzed/SpiceDB schema files](https://authzed.com/docs/reference/schema-lang).
 
+Usage:
+* Run from source
+  * `go install github.com/Jawshua/zedutil@latest`
+  * `zedutil ...`
+* Run with docker
+  * `docker run --rm -it ghcr.io/jawshua/zedutil -- ...`
+
 ## genmap
 
 `zedutil genmap` parses a .zed schema file and outputs a relation map file, which may be used for downstream code/doc generation.

@@ -1,0 +1,18 @@
+# .goreleaser.yaml
+builds:
+  - id: "zedutil"
+    binary: zedutil
+    main: .
+    env:
+      - CGO_ENABLED=0
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - "6"
+      - "7"
+
+release:
+  make_latest: true
+  extra_files:
+    - glob: ./README.md
