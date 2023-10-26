@@ -11,7 +11,7 @@ zedutil ...
 
 # Run from GitHub Releases
 # https://github.com/Jawshua/zedutil/releases/latest
-curl -L -o zedutil.tgz https://github.com/Jawshua/zedutil/releases/download/v0.1.1/zedutil_0.1.1_`uname | tr '[:upper:]' '[:lower:]'`_`uname -m`.tar.gz
+curl -L -o zedutil.tgz https://github.com/Jawshua/zedutil/releases/download/v0.1.2/zedutil_0.1.2_`uname | tr '[:upper:]' '[:lower:]'`_`uname -m`.tar.gz
 tar xf zedutil.tgz zedutil
 rm zedutil.tgz
 ./zedutil ...
