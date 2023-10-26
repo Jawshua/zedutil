@@ -26,8 +26,8 @@ type RelationTuple struct {
 }
 
 type Metadata struct {
-	Comment    string `json:"comment" yaml:"comment"`
-	Attributes map[string]interface{}
+	Comment    string                 `json:"comment" yaml:"comment"`
+	Attributes map[string]interface{} `json:"attributes" yaml:"attributes"`
 }
 
 // resolveRelationRecursive walks the entity tree and finds all relations that reference the relationTuple provided.
