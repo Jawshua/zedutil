@@ -1,0 +1,27 @@
+entities:
+  document:
+    relations:
+      edit:
+        type: PERMISSION
+        metadata:
+          comment: edit indicates that the user has permission to edit the document.
+          attributes: {}
+      owner:
+        type: RELATION
+        metadata:
+          comment: owner indicates that the user is the owner of the document.
+          attributes: {}
+        downstreamPermissions:
+          - entity: document
+            relation: edit
+        allowedDirectRelations:
+          - entity: user
+    metadata:
+      comment: document represents a document protected by Authzed.
+      attributes: {}
+  user:
+    relations: {}
+    metadata:
+      comment: user represents a user that can be granted role(s)
+      attributes: {}
+schemaHash: 0ca19f4ea814a57e18263b44b813d0c5fb7a01ce2cbd86f220fa82da8ea688e4

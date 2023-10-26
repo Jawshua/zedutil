@@ -1,0 +1,65 @@
+/** @attr public app=auth
+ * user represents a user that can be granted role(s)
+ */
+definition user {}
+
+/** @attr public app=auth
+ * group represents a group of users
+ */
+definition group {
+    /**
+     * direct_member is a direct member of the group
+     */
+    relation direct_member: user | user:*
+
+    /**
+     * member combines all users that may be considered a member of the group
+     */
+    permission member = direct_member
+}
+
+/** @attr public app=docstore
+ * drive represents a drive protected by Authzed.
+ */
+definition drive {
+    /** @attr public
+     * owner indicates that the user is the owner of the drive.
+     */
+    relation owner: user | group#member
+
+    /** @attr public
+     * edit indicates that the user has permission to edit the drive.
+     */
+    permission edit = owner
+}
+
+/** @attr public app=docstore
+ * document represents a document protected by Authzed.
+ */
+definition document {
+    /** @attr public
+     * drive is the drive that contains the document.
+     */
+    relation drive: drive
+
+    /** @attr public
+     * writer indicates that the user is a writer on the document.
+     */
+    relation writer: user | group#member
+
+    /** @attr public
+     * reader indicates that the user is a reader on the document.
+     */
+    relation reader: user | group#member
+
+    /** @attr public
+     * edit indicates that the user has permission to edit the document.
+     */
+    permission edit = writer + drive->edit
+
+    /** @attr public
+     * view indicates that the user has permission to view the document, if they
+     * are a `reader` *or* have `edit` permission.
+     */
+    permission view = reader + edit
+}

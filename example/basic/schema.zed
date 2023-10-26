@@ -1,0 +1,19 @@
+/**
+ * user represents a user that can be granted role(s)
+ */
+definition user {}
+
+/**
+ * document represents a document protected by Authzed.
+ */
+definition document {
+    /**
+     * owner indicates that the user is the owner of the document.
+     */
+    relation owner: user
+
+    /**
+     * edit indicates that the user has permission to edit the document.
+     */
+    permission edit = owner
+}

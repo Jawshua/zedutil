@@ -1,0 +1,120 @@
+entities:
+  document:
+    relations:
+      drive:
+        type: RELATION
+        metadata:
+          comment: drive is the drive that contains the document.
+          attributes:
+            public: true
+        allowedDirectRelations:
+          - entity: drive
+      edit:
+        type: PERMISSION
+        metadata:
+          comment: edit indicates that the user has permission to edit the document.
+          attributes:
+            public: true
+      reader:
+        type: RELATION
+        metadata:
+          comment: reader indicates that the user is a reader on the document.
+          attributes:
+            public: true
+        downstreamPermissions:
+          - entity: document
+            relation: view
+        allowedDirectRelations:
+          - entity: user
+          - entity: group
+            relation: member
+      view:
+        type: PERMISSION
+        metadata:
+          comment: |-
+            view indicates that the user has permission to view the document, if they
+            are a `reader` *or* have `edit` permission.
+          attributes:
+            public: true
+      writer:
+        type: RELATION
+        metadata:
+          comment: writer indicates that the user is a writer on the document.
+          attributes:
+            public: true
+        downstreamPermissions:
+          - entity: document
+            relation: edit
+          - entity: document
+            relation: view
+        allowedDirectRelations:
+          - entity: user
+          - entity: group
+            relation: member
+    metadata:
+      comment: document represents a document protected by Authzed.
+      attributes:
+        app: docstore
+        public: true
+  drive:
+    relations:
+      edit:
+        type: PERMISSION
+        metadata:
+          comment: edit indicates that the user has permission to edit the drive.
+          attributes:
+            public: true
+      owner:
+        type: RELATION
+        metadata:
+          comment: owner indicates that the user is the owner of the drive.
+          attributes:
+            public: true
+        downstreamPermissions:
+          - entity: drive
+            relation: edit
+          - entity: document
+            relation: edit
+          - entity: document
+            relation: view
+        allowedDirectRelations:
+          - entity: user
+          - entity: group
+            relation: member
+    metadata:
+      comment: drive represents a drive protected by Authzed.
+      attributes:
+        app: docstore
+        public: true
+  group:
+    relations:
+      direct_member:
+        type: RELATION
+        metadata:
+          comment: direct_member is a direct member of the group
+          attributes: {}
+        downstreamPermissions:
+          - entity: group
+            relation: member
+        allowedDirectRelations:
+          - entity: user
+          - entity: user
+            relation: '*'
+      member:
+        type: PERMISSION
+        metadata:
+          comment: member combines all users that may be considered a member of the group
+          attributes: {}
+    metadata:
+      comment: group represents a group of users
+      attributes:
+        app: auth
+        public: true
+  user:
+    relations: {}
+    metadata:
+      comment: user represents a user that can be granted role(s)
+      attributes:
+        app: auth
+        public: true
+schemaHash: f6f6fd585dd1f79ecda908f9ddd55709c156c9b200bac54fd3314c7419226b36
